@@ -4,7 +4,10 @@ import os
 app = Flask(__name__)
 
 # Hardcoded secret key (vulnerability)
-SECRET_KEY = "mysecretkey123"
+# Security Fix: Replaced hardcoded secret with environment variable
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 
 # Mock database
 tasks = []
@@ -13,17 +16,31 @@ tasks = []
 def home():
     return render_template('index.html', tasks=tasks)
 
+import html
+
 @app.route('/add', methods=['POST'])
 def add_task():
-    task_content = request.form.get('content')  # No input validation
+    task_content = request.form.get('content')
     if task_content:
-        tasks.append(task_content)
+        # Security Fix: Escaped user input to prevent XSS or HTML injection
+
+        safe_content = html.escape(task_content)
+        tasks.append(safe_content)
         return jsonify({"message": "Task added successfully!"}), 200
     return jsonify({"error": "Content cannot be empty!"}), 400
 
 @app.route('/delete', methods=['POST'])
 def delete_task():
-    task_index = int(request.form.get('index'))  # No input validation
+    index_input = request.form.get('index')
+
+    # Security Fix: Validate input is a digit before converting to integer
+    if index_input and index_input.isdigit():
+        task_index = int(index_input)
+        if 0 <= task_index < len(tasks):
+            tasks.pop(task_index)
+            return jsonify({"message": "Task deleted successfully!"}), 200
+    return jsonify({"error": "Invalid task index!"}), 400
+
     if 0 <= task_index < len(tasks):
         tasks.pop(task_index)
         return jsonify({"message": "Task deleted successfully!"}), 200

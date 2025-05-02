@@ -2,7 +2,7 @@
 
 This project is a simple Flask-based TODO web application with integrated DevSecOps tooling to demonstrate secure development practices. It forms part of a cybersecurity internship project focusing on containerized security scanning using Trivy.
 
-## 🔐 Security Tools Used
+##  Security Tools Used
 
 ### Trivy
 Trivy was integrated into the CI/CD pipeline to scan for vulnerabilities in:
@@ -22,9 +22,9 @@ Trivy was integrated into the CI/CD pipeline to scan for vulnerabilities in:
   - `CVE-2023-31484` – TLS verification issue in Perl’s CPAN module (HIGH)
   - `CVE-2023-45853` – zlib heap-based buffer overflow (CRITICAL)
 
-> 🔎 These findings were documented in `vulnerability_report.md`.
+>  These findings were documented in `vulnerability_report.md`.
 
-## 🧪 How to Run the App Locally
+##  How to Run the App Locally
 
 1. Clone the repository:
    ```bash

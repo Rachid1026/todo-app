@@ -1,11 +1,11 @@
 TRIVY VULNERABILITY REPORT
 ==========================
 
-Image: todo-app:latest
-Base OS: Debian 12.10
-Scan Date: 2025-05-02
-Tool: Trivy by Aqua Security
-Scan Mode: CI/CD GitHub Actions - Fail on HIGH/CRITICAL
+Image: todo-app:latest  
+Base OS: Debian 12.10  
+Scan Date: 2025-05-02  
+Tool: Trivy by Aqua Security  
+Scan Mode: CI/CD GitHub Actions - Fail on HIGH/CRITICAL  
 
 Summary:
 --------
@@ -51,4 +51,4 @@ These vulnerabilities are acknowledged but not actionable within the current sco
 
 Prepared by: Rachid Dwyer  
 Intern, Refonte Cybersecurity Program  
-https://github.com/Rachid1026/todo-app  
+https://github.com/Rachid1026/todo-app

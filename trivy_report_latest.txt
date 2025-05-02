@@ -1,0 +1,54 @@
+TRIVY VULNERABILITY REPORT
+==========================
+
+Image: todo-app:latest
+Base OS: Debian 12.10
+Scan Date: 2025-05-02
+Tool: Trivy by Aqua Security
+Scan Mode: CI/CD GitHub Actions - Fail on HIGH/CRITICAL
+
+Summary:
+--------
+The following vulnerabilities were detected in the container image as part of the CI/CD pipeline. Both are inherited from the base Debian image and are not introduced by application code or packages in requirements.txt.
+
+1. CVE-2023-31484
+-----------------
+Severity: HIGH  
+Package: perl-base  
+Installed Version: 5.36.0-7+deb12u2  
+Description:  
+The CPAN.pm module in Perl does not verify TLS certificates when downloading distributions over HTTPS. This could allow a man-in-the-middle attacker to spoof responses and inject malicious code.
+
+Reference:  
+https://avd.aquasec.com/nvd/cve-2023-31484  
+https://nvd.nist.gov/vuln/detail/CVE-2023-31484  
+
+Justification:  
+This vulnerability is part of the Debian base image and cannot be mitigated at the application level. It does not affect the functionality or security posture of this Flask-based web application, which does not rely on CPAN during runtime.
+
+---
+
+2. CVE-2023-45853
+-----------------
+Severity: CRITICAL  
+Package: zlib1g  
+Installed Version: 1:1.2.13.dfsg-1  
+Description:  
+zlib contains an integer overflow vulnerability in the zipOpenNewFileInZip4_6 function, which could result in a heap-based buffer overflow when handling crafted ZIP archives.
+
+Reference:  
+https://avd.aquasec.com/nvd/cve-2023-45853  
+https://nvd.nist.gov/vuln/detail/CVE-2023-45853  
+
+Justification:  
+This vulnerability is also inherited from the Debian base image. Since the application does not interact with ZIP file compression or decompression, there is currently no known attack vector in this context. No upstream patch is available yet (`will_not_fix`), and any mitigation would require maintaining a custom image, which is outside the scope of this project.
+
+---
+
+Conclusion:
+-----------
+These vulnerabilities are acknowledged but not actionable within the current scope. The project continues to track upstream patches and is prepared to update the base image when official fixes become available.
+
+Prepared by: Rachid Dwyer  
+Intern, Refonte Cybersecurity Program  
+https://github.com/Rachid1026/todo-app  

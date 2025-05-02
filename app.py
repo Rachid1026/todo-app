@@ -47,4 +47,11 @@ def delete_task():
     return jsonify({"error": "Invalid task index!"}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+         # Bandit Fix: Disabled debug mode and allowed external container access
+         import os
+
+debug_mode = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+app.run(debug=debug_mode, host="0.0.0.0", port=5000)
+
+
+
